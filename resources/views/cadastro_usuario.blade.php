@@ -15,6 +15,7 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     </head>
 
@@ -36,7 +37,20 @@
 
                                         <h6 class="h5 mb-0 mt-4">Cria sua conta!</h6>
                                         <br/>
-                                        <form action="#" class="authentication-form">
+                                        <form action="{{route('register_create')}}" class="authentication-form" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label class="form-control-label">Nome</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="icon-dual" data-feather="user"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                        placeholder="Seu nome">
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="form-control-label">Username</label>
                                                 <div class="input-group input-group-merge">
@@ -45,7 +59,7 @@
                                                             <i class="icon-dual" data-feather="user"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="name"
+                                                    <input type="text" class="form-control" id="username" name="username"
                                                         placeholder="Seu username">
                                                 </div>
                                             </div>
@@ -58,7 +72,7 @@
                                                             <i class="icon-dual" data-feather="mail"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="email" class="form-control" id="email" placeholder="Seu email">
+                                                    <input type="email" class="form-control" id="email" placeholder="Seu email" name="email">
                                                 </div>
                                             </div>
 
@@ -67,14 +81,26 @@
                                                 <div class="input-group input-group-merge">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
-                                                            <i class="icon-dual" data-feather="lock"></i>
+                                                            <i class="icon-dual i-password" data-feather="lock"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="password" class="form-control" id="password"
-                                                        placeholder="Sua senha">
+                                                    <input type="password" class="form-control password" id="password"
+                                                        placeholder="Sua senha " name="password">
                                                 </div>
                                             </div>
-                                            <br/>
+                                            <div class="form-group" >
+                                                <label class="form-control-label">Confirme sua senha</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="icon-dual i-password" data-feather="lock"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="password" class="form-control password" id="password_confirmation" name="password_confirmation"
+                                                        placeholder="Sua senha">
+                                                </div>
+                                                <label id="label-password_confirmation" style="color: red; font-size: 11px"></label>
+                                            </div>
                                             <div class="form-group mb-0 text-center">
                                                 <button class="btn btn-primary btn-block" type="submit">Criar Conta</button>
                                             </div>
@@ -105,6 +131,7 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
+        <script src="assets/js/confirmPassword.js"></script>
         
     </body>
 </html>
