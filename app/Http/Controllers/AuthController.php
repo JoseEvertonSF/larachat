@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AuthRequest;
 
 class AuthController extends Controller
 {
@@ -10,4 +13,19 @@ class AuthController extends Controller
     {
         return view('login');
     }
+
+    public function auth(AuthRequest $request)
+    {   
+        $credenciais = $request->validated();
+        
+        if(Auth::attempt($credenciais)){
+            $request->session()->regenerate();
+            return redirect('/');
+        }
+
+        return redirect()->route('login')
+                    ->withErrors(['username' => 'Usuário não existe ou credenciais estão incorretas'])
+                ->onlyInput('username');
+    }
+
 }

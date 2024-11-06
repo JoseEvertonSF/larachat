@@ -37,7 +37,8 @@
                                         <h6 class="h5 mb-0 mt-4">Bem vindo de volta!</h6>
                                         <p class="text-muted mt-1 mb-4">Entre com seu username e senha.</p>
 
-                                        <form action="#" class="authentication-form">
+                                        <form action="{{route('auth')}}" class="authentication-form" method="POST">
+                                            @csrf
                                             <div class="form-group">
                                                 <label class="form-control-label">Username</label>
                                                 <div class="input-group input-group-merge">
@@ -46,7 +47,7 @@
                                                             <i class="icon-dual" data-feather="user"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control" id="username" placeholder="Entre com o seu username">
+                                                    <input type="text" class="form-control" name="username" placeholder="Entre com o seu username">
                                                 </div>
                                             </div>
 
@@ -59,13 +60,14 @@
                                                             <i class="icon-dual" data-feather="lock"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="password" class="form-control" id="senha"
+                                                    <input type="password" class="form-control" name="password"
                                                         placeholder="Entre com a sua senha">
                                                 </div>
                                             </div>
                                             <br/>
                                             <div class="form-group mb-0 text-center">
-                                                <button class="btn btn-primary btn-block" type="submit"> Entrar
+                                                <button class="btn btn-primary btn-block" type="submit"> 
+                                                    Entrar
                                                 </button>
                                             </div>
                                         </form>

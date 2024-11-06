@@ -17,6 +17,8 @@ class UserController extends Controller
 
     public function create(CreateUserRequest $request)
     {   
+        $request->validated();
+        
         $user = new User();
         $user->name = $request->name;
         $user->username = $request->username;
