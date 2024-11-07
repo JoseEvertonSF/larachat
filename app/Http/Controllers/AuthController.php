@@ -10,7 +10,7 @@ use App\Http\Requests\AuthRequest;
 class AuthController extends Controller
 {
     public function index()
-    {
+    {   
         return view('login');
     }
 
@@ -24,8 +24,7 @@ class AuthController extends Controller
         }
 
         return redirect()->route('login')
-                    ->withErrors(['username' => 'Usuário não existe ou credenciais estão incorretas'])
-                ->onlyInput('username');
+                    ->with(['erro' => 'Usuário não existe ou credenciais estão incorretas']);
     }
 
 }

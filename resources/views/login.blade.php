@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8" />
         <title>Larachat</title>
@@ -33,7 +33,14 @@
                                                 <h3 class="d-inline align-middle ml-1 text-logo">Larachat</h3>
                                             </a>
                                         </div>
-
+                                        @if(session()->has('erro'))
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <label style="font-size: 12px;">{{session('erro')}}</label>
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                        @endif
                                         <h6 class="h5 mb-0 mt-4">Bem vindo de volta!</h6>
                                         <p class="text-muted mt-1 mb-4">Entre com seu username e senha.</p>
 
@@ -98,6 +105,7 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
+        <script src="assets/js/closeAlert.js"></script>
         
     </body>
 </html>
