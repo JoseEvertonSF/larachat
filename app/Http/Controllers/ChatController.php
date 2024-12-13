@@ -7,8 +7,8 @@ use App\Models\User;
 
 class ChatController extends Controller
 {
-    public function index($id)
-    {
+    public function index()
+    {   
         // Mensagens aqui
         $usuarios = User::select('username', 'name', 'id')->get();
         return view('chat', ['usuarios' => $usuarios]);

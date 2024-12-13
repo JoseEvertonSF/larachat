@@ -1,4 +1,4 @@
-<x-layout2 :users="$usuarios">
+<x-layout :users="$usuarios">
     <div class="chat-conversation mb-3" style="max-height: 82vh">
         <div class="col-xl-12 pl-5 pr-5 pt-2">
             <ul class="conversation-list slimscroll-menu">

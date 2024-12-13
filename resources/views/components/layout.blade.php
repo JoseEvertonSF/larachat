@@ -64,19 +64,19 @@
                             @if(isset($users))
                                 @foreach($users as $usuario)
                                     <li class="mt-2">
-                                        <div class="row col-xl-12">
-                                            <div class="foto mt-3">
+                                        <div class="d-flex align-items-start p-2" id="chats">
+                                            <div class="foto" style=" width: 45px;">
 
                                             </div>
-                                            <div class="ml-2 col-md-9">
-                                                <div class="row col-md-12">
-                                                    <h6 style="font-size: 13px">Nome do usuário</h6>
-                                                    <label class="ml-auto pt-2" style="font-size: 10px">10:30</label>
-                                                </div>
-                                                <div class="row">
-                                                    <label style="font-size: 12px">Oi</label>
-                                                </div>
-                                                
+                                            <div class="w-100 overflow-hidden ml-2">
+                                                <h6 class="mt-0 mb-0 fs-14">
+                                                    {{$usuario->name}}
+                                                    <span class="float-right text-muted" style="font-size: 10px">10:30</span>
+                                                </h6>
+                                                <p style="font-size: 12px">
+                                                    Oi
+                                                    <span class="float-right badge bg-danger text-white">25</span>
+                                                </p>                                            
                                             </div>
                                         </div>
                                     </li>
