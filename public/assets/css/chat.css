@@ -1,0 +1,14 @@
+.foto{
+    border-radius: 50%;
+    background-color: #d3d3d3;
+    width: 40px;
+    height: 40px;
+}
+
+#chats{
+    cursor: pointer;
+}
+
+#chats:hover{
+    background-color:#f8f9fa
+}

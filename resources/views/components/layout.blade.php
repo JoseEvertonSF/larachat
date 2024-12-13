@@ -15,10 +15,11 @@
         <link href="{{url('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{url('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{url('assets/css/chat.css')}}" rel="stylesheet" type="text/css" />
 
     </head>
 
-    <body class=" boxed-layout pb-0" data-left-keep-condensed="false">
+    <body class=" boxed-layout pb-0" data-left-keep-condensed="true">
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -32,8 +33,12 @@
                             <span class="d-inline h5 ml-1 text-logo">LARACHAT</span>
                         </span>
                     </a>
+                    <div class="chat-avatar">
+                        J
+                    </div>
 
                     <ul class="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
+
                         <li class="d-none d-sm-block">
                             <div class="app-search">
                                 <form>
@@ -58,19 +63,20 @@
                         <ul class="metismenu" id="menu-bar">
                             @if(isset($users))
                                 @foreach($users as $usuario)
-                                    <li class="border-bottom ml-3 p-3" style="cursor: pointer; justify-content: space-between" id="{{$usuario->id}}">
-                                        <div class="row">
-                                            <div class="row pr-2">
-                                                <div class="text-center p-2 font-size-22" style="background-color: #d3d3d3; color:#fff; border-radius: 100%; width: 3.2rem; height: 3.2rem;">
-                                                    {{strtoupper(explode(' ', $usuario->username)[0][0])}}
+                                    <li class="mt-2">
+                                        <div class="row col-xl-12">
+                                            <div class="foto mt-3">
+
+                                            </div>
+                                            <div class="ml-2 col-md-9">
+                                                <div class="row col-md-12">
+                                                    <h6 style="font-size: 13px">Nome do usuário</h6>
+                                                    <label class="ml-auto pt-2" style="font-size: 10px">10:30</label>
                                                 </div>
-                                            </div>
-                                            <div class="row col-md-10">
-                                                <span class="mr-auto col-md-8">{{$usuario->username}}</span>
-                                                <span class="font-size-11 text-left pl-3">Mensagem aqui</span>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <span class="badge badge-success ml-auto mr-1">1</span>
+                                                <div class="row">
+                                                    <label style="font-size: 12px">Oi</label>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </li>
@@ -100,14 +106,11 @@
                             <div class="row">
                                 <div class="col">
                                     <input type="text" class="form-control chat-input"
-                                        placeholder="Enter your text" required>
-                                    <div class="invalid-feedback">
-                                        Please enter your messsage
-                                    </div>
+                                        placeholder="Digite uma mensagem" required>
                                 </div>
                                 <div class="col-auto">
                                     <button type="submit"
-                                        class="btn btn-danger chat-send btn-block waves-effect waves-light">Send</button>
+                                        class="btn btn-success chat-send btn-block waves-effect waves-light">Send</button>
                                 </div>
                             </div>
                         </form>
