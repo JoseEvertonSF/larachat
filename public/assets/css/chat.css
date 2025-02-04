@@ -12,3 +12,20 @@
 #chats:hover{
     background-color:#f8f9fa
 }
+
+.side-menu{
+    width: 350px;
+}
+
+.chat{
+    width: 60%;
+    left: 31%;
+}
+
+.img-home{
+    width: 20vw;
+    margin-top: 20vh;
+    margin-left: auto
+}
+
+

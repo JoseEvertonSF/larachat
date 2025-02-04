@@ -1,3 +1,5 @@
-<x-layout :users="$usuarios">
-    
-</x-layout>
+<x-layouts.app>
+    <div class="chat">
+        
+    </div>
+</x-layouts.app>

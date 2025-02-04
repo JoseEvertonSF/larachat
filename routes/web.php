@@ -11,6 +11,9 @@ Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 Route::get('/register', [UserController::class, 'index'])->name('register');
 Route::post('/register/create', [UserController::class, 'create'])->name('register_create');
 
+Route::get('/chat/{idUser}', [ChatController::class, 'chat'])->name('chat');
+
+
 Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 

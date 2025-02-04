@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChatParticipants;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Chat;
+use App\Models\ChatUser;
 
 class HomeController extends Controller
 {   
     public function index()
     {   
-        $usuarios = User::select('username', 'name', 'id')->whereNot('id', auth()->user()->id)->get();
-        return view('chat', ['usuarios' => $usuarios]);
+        return view('home');
     }
 }

@@ -45,4 +45,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function scopeUsersModal()
+    {   
+        $idUser = auth()->user()->id;
+        return $this->select('id', 'name')->where('id', '!=', $idUser)->get();
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class);
+    }
+
 }
