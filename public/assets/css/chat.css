@@ -1,3 +1,9 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box
+}
+
 .foto{
     border-radius: 50%;
     background-color: #d3d3d3;
@@ -14,12 +20,16 @@
 }
 
 .side-menu{
-    width: 350px;
+    min-width: 350px;
+    position: fixed;
 }
 
 .chat{
-    width: 60%;
-    left: 31%;
+    margin-top: 0px; 
+    margin-left: 350px; 
+    padding: 0px; 
+    position: fixed;
+    width: calc(100% - 350px)
 }
 
 .img-home{
@@ -28,4 +38,22 @@
     margin-left: auto
 }
 
+.icon-none{
+    display: none
+}
+
+@media screen and (max-width: 780px){
+    .side-menu{
+        display: none;
+    }
+    .chat{
+        width: 100%;
+        margin-left: 0px; 
+    }
+
+    .icon-none{
+        display: block
+    }
+    
+}
 

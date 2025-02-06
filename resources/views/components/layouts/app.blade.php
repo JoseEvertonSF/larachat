@@ -20,19 +20,16 @@
 
 </head>
 
-<body>
-    <div id="content ml-auto">
-        <div class="container-fluid col-md-12">
-            <div class="row">
+<body >
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row ml-mr-auto">
                 <div class="side-menu">
-                    <div class="card">
-                        <div class="card-body" style="height: 100vh;">
+                    <div class="card mb-0" style="height: 100vh">
+                        <div class="card-body">
                             <div class="row pl-2">
                                 <div>
                                     <h4><strong>Conversas</strong></h4>
-                                </div>
-                                <div class="ml-auto mt-2 icon-item">
-                                    <i data-feather="menu" class="icon-dual" style="cursor:pointer" id="menu"></i>
                                 </div>
                             </div>
                             <hr>
@@ -49,22 +46,6 @@
                                         <i data-feather="plus" class="feather feather-plus"></i>
                                     </div>
                                 </button>
-                                <!-- sample modal content -->
-                                <div id="modalNovoChat" class="modal fade" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="myModalLabel">Nova Conversa</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <livewire:modal-users-filtro/>
-                                            </div><!-- /.modal-content -->
-                                        </div>
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
                             </div>
                             <div class="slimscroll-menu" id="sidebar-menu">
                                <livewire:side-bar-chats />
@@ -73,6 +54,22 @@
                     </div>
                 </div>
                 {{$slot}}
+                <!-- sample modal content -->
+                <div id="modalNovoChat" class="modal fade" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Nova Conversa</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <livewire:modal-users-filtro/>
+                            </div><!-- /.modal-content -->
+                        </div>
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
         </div>
     </div>
