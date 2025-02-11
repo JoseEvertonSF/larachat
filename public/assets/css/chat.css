@@ -20,8 +20,9 @@
 }
 
 .side-menu{
-    min-width: 350px;
+    width: 350px;
     position: fixed;
+    z-index: 1;
 }
 
 .chat{
@@ -30,6 +31,10 @@
     padding: 0px; 
     position: fixed;
     width: calc(100% - 350px)
+}
+
+.chat-height{
+   max-height: 79vh;
 }
 
 .img-home{
@@ -44,16 +49,28 @@
 
 @media screen and (max-width: 780px){
     .side-menu{
-        display: none;
+        visibility: hidden;
     }
+
     .chat{
         width: 100%;
         margin-left: 0px; 
     }
 
     .icon-none{
-        display: block
+        display: block;
     }
+
+    .chat-height{
+        max-height: 79h;
+    }
+
     
 }
 
+@media screen and (min-width: 780px){
+    .side-menu{
+        visibility: visible !important; 
+    }
+    
+}

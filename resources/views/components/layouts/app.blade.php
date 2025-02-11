@@ -28,8 +28,9 @@
                     <div class="card mb-0" style="height: 100vh">
                         <div class="card-body">
                             <div class="row pl-2">
-                                <div>
-                                    <h4><strong>Conversas</strong></h4>
+                                <h4><strong>Conversas</strong></h4>
+                                <div class="ml-auto mt-2 icon-item icon-none">
+                                    <i data-feather="x" class="icon-dual sidebar-close" style="cursor:pointer"></i>
                                 </div>
                             </div>
                             <hr>
@@ -47,7 +48,7 @@
                                     </div>
                                 </button>
                             </div>
-                            <div class="slimscroll-menu" id="sidebar-menu">
+                            <div class="slimscroll-menu">
                                <livewire:side-bar-chats />
                             </div>
                         </div>
