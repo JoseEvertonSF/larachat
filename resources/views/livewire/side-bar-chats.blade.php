@@ -1,7 +1,7 @@
 <div>
     <ul class="metismenu" id="menu-bar">
         @foreach($chats as $chat)
-            <li>
+            <li class="chat-side-bar">
                 <a href="{{route('chat', ['idUser' => $chat->user_id])}}">
                     <div class="d-flex align-items-start p-2" id="chats">
                         <div class="foto" style=" width: 45px;">

@@ -1,7 +1,7 @@
 *{
     padding: 0px;
     margin: 0px;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 .foto{
@@ -29,16 +29,34 @@
     margin-top: 0px; 
     margin-left: 350px; 
     padding: 0px; 
-    position: fixed;
-    width: calc(100% - 350px)
+    width: calc(100% - 350px);
 }
 
-.chat-height{
-   max-height: 79vh;
+.area-message{
+    height: 79vh !important;
+    overflow: auto !important;
+}
+
+.input-message{
+    background-color: #f3f4f7 !important;
+    height: auto !important;
+    max-height: 11.76em !important;
+    line-height: 1.54;
+    overflow: auto !important;
+    user-select: text !important;
+    word-break: break-word !important;
+}
+
+.area-input-message{
+    height: auto; 
+    margin-bottom: 0px; 
+    bottom: 0px; 
+    position: absolute; 
+    width: calc(100% - 350px);
 }
 
 .img-home{
-    width: 20vw;
+    width: 80%;
     margin-top: 20vh;
     margin-left: auto
 }
@@ -64,7 +82,10 @@
     .chat-height{
         max-height: 79h;
     }
-
+    
+    .area-input-message{
+        width: 100%;
+    } 
     
 }
 

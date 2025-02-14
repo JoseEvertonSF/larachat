@@ -20,7 +20,7 @@
 
 </head>
 
-<body >
+<body style="padding-bottom: 0px">
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row ml-mr-auto">
@@ -40,15 +40,15 @@
                                         <span data-feather="search" class="icon" style="height: 15px;"></span>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control col-xl-9" placeholder="Pesquisar">
+                                <input type="text" class="form-control col-xl-9 col-8" placeholder="Pesquisar" id="filtro-chats">
                                 <button id="novo-chat" data-target="#modalNovoChat" data-toggle="modal"
-                                    class="btn btn-sm btn-soft-success col-md-2" >
+                                    class="btn btn-sm btn-soft-success col-md-2  col-2" >
                                     <div>
                                         <i data-feather="plus" class="feather feather-plus"></i>
                                     </div>
                                 </button>
                             </div>
-                            <div class="slimscroll-menu">
+                            <div style="overflow-y: auto">
                                <livewire:side-bar-chats />
                             </div>
                         </div>
@@ -80,6 +80,7 @@
     <!-- App js -->
     <script src="{{url('assets/js/app.min.js')}}"></script>
     <script src="{{url('assets/js/filtroModal.js')}}"></script>
+    <script src="{{url('assets/js/filtroChats.js')}}"></script>
     <script src="{{url('assets/js/sidebar.js')}}"></script>
 </body>
 
