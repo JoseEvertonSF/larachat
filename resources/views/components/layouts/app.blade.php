@@ -82,6 +82,7 @@
     <script src="{{url('assets/js/filtroModal.js')}}"></script>
     <script src="{{url('assets/js/filtroChats.js')}}"></script>
     <script src="{{url('assets/js/sidebar.js')}}"></script>
+    <script src="{{url('assets/js/sendMessage.js')}}"></script>
 </body>
 
 </html>

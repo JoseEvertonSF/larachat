@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChatParticipants;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
 use App\Models\ChatUser;
-use Illuminate\Support\Facades\DB;
 
 
 class ChatController extends Controller
@@ -19,7 +19,7 @@ class ChatController extends Controller
         })->whereHas('participants', function($query) use($idUser){
             $query->where('user_id', $idUser);
         })->first();
-
+        
         $userFrom = User::find($idUser);
 
         if(!$chat){
@@ -29,14 +29,20 @@ class ChatController extends Controller
         }
 
         $chat->messages =  $chat->messages?->sortBy('created_at');
-        return view('chat', ['user' => $userFrom, 'chat' => $chat, 'users' => []]);
+        return view('chat', ['user' => $userFrom, 'chat' => $chat, 'userTo' => auth()->user()]);
         
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        
-    }
+        $userTo = auth()->user()->id;
+        $createMessage = Message::create([
+            'chat_id' => $request->chatId,
+            'content' => $request->content,
+            'user_id' => $userTo 
+        ]);
 
+        return response()->json(['status' => 'created']);
+    }
 
 }

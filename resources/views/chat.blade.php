@@ -20,74 +20,58 @@
                 <div class="chat-conversation mt-2">
                     <div class="col-xl-12">
                         <ul class="conversation-list area-message">
-                            @for($i = 1; $i <= 100; $i++)
-                                @if(($i % 2) == 0)
-                                    <li class="clearfix">
-                                        <div class="chat-avatar">
-                                            <div class="foto">
-
-                                            </div>
-                                            <i>10:00</i>
-                                        </div>
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap bg-soft-success col-xl-4">
-                                                <i>Greeva</i>
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                    Lorem Ipsum has been the industry's standard dummy text ever since the
-                                                    1500s, when an unknown printer took a galley of type and scrambled it to
-                                                    make a type specimen book. It has survived not only five centuries, but also
-                                                    the leap into electronic typesetting, remaining essentially unchanged. It
-                                                    was popularised in the 1960s with the release of Letraset sheets containing
-                                                    Lorem Ipsum passages, and more recently with desktop publishing software
-                                                    like Aldus PageMaker including versions of Lorem Ipsum.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @else
+                            @foreach($chat->messages as $message)
+                                @if($message->user_id == $userTo->id)
                                     <li class="clearfix odd">
                                         <div class="chat-avatar">
                                             <div class="foto">
 
                                             </div>
-                                            <i>10:01</i>
+                                            <i>{{date('H:i', strtotime($message->created_at))}}</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap bg-soft-success col-xl-4">
+                                                <i>{{$userTo->name}}</i>
+                                                <p style="word-break: break-word">
+                                                    {{$message->content}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="clearfix">
+                                        <div class="chat-avatar">
+                                            <div class="foto">
+
+                                            </div>
+                                            <i>{{date('H:i', strtotime($message->created_at))}}</i>
                                         </div>
                                         <div class="conversation-text">
                                             <div class="ctext-wrap col-xl-4">
-                                                <i>Shreyu</i>
-                                                <p>
-                                                    There are many variations of passages of Lorem Ipsum available, but the
-                                                    majority have suffered alteration in some form, by injected humour, or
-                                                    randomised words which don't look even slightly believable. If you are going
-                                                    to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                                                    embarrassing hidden in the middle of text. All the Lorem Ipsum generators on
-                                                    the Internet tend to repeat predefined chunks as necessary, making this the
-                                                    first true generator on the Internet. It uses a dictionary of over 200 Latin
-                                                    words, combined with a handful of model sentence structures, to generate
-                                                    Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
-                                                    always free from repetition, injected humour, or non-characteristic words
-                                                    etc.
+                                                <i>{{$user->name}}</i>
+                                                <p style="word-break: break-word">
+                                                    {{$message->content}}
                                                 </p>
                                             </div>
                                         </div>
                                     </li>
                                 @endif
-                            @endfor
+                            @endforeach
                         </ul>
                     </div>
                     <div class="card col-xl-12 area-input-message">
-                        <form action="">
+                        <form>
+                            @csrf
                             <div class="card-body p-0">
                                 <div class="row m-4">
-                                    <div class="col form-control border-0 input-message" contenteditable="true"
+                                    <div class="col form-control border-0 input-message" contenteditable="true" idchat="{{$chat->id}}"
                                         style="background-color: #f3f4f7;">
 
                                     </div>
                                     <div class="col-auto" style="align-content: flex-end">
-                                        <button type="submit"
-                                            class="btn btn-success chat-send btn-block waves-effect waves-light" >
-                                            <i data-feather="send" class="feather feather-send"></i> 
+                                        <button type="submit" id="send"
+                                            class="btn btn-success chat-send btn-block waves-effect waves-light">
+                                            <i data-feather="send" class="feather feather-send"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -98,4 +82,8 @@
             </div>
         </div>
     </div>
+    <script>
+        var user = JSON.parse({{json_encode($userTo)}});
+        console.log(user)
+    </script>
 </x-layouts.app>
