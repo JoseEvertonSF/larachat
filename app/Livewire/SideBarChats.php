@@ -13,7 +13,7 @@ class SideBarChats extends Component
     {   
         $myChats = ChatUser::where('user_id', auth()->user()->id)->get()->pluck('chat_id');
 
-        $chats = Chat::with(['messages' => function($query) use($myChats){
+        $chats = Chat::whereIn('id', $myChats)->with(['messages' => function($query) use($myChats){
                 $query->orderBy('created_at', 'DESC')->take(1);
         }])->with(['participants' => function($query) use($myChats){
                 $query->whereIn('chat_id', $myChats)->whereNot('user_id', auth()->user()->id);

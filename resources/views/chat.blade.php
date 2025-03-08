@@ -83,7 +83,9 @@
         </div>
     </div>
     <script>
-        var user = JSON.parse({{json_encode($userTo)}});
-        console.log(user)
+        var user = '{!! $userTo->name !!}';
+        var userId = '{!! $userTo->id !!}';
+        var chatId = '{!! $chat->id !!}';
     </script>
+    <script type="module" src="{{url('assets/js/newMessageChat.js')}}"></script>
 </x-layouts.app>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChatParticipants;
+use App\Events\NewMessage;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -33,16 +33,17 @@ class ChatController extends Controller
         
     }
 
-    public function store(Request $request)
-    {
-        $userTo = auth()->user()->id;
-        $createMessage = Message::create([
+    public function store(Request $request, Chat $chat)
+    {   
+        $userTo = auth()->user();
+        $message = Message::create([
             'chat_id' => $request->chatId,
             'content' => $request->content,
-            'user_id' => $userTo 
+            'user_id' => $userTo->id 
         ]);
 
-        return response()->json(['status' => 'created']);
+        $chat = Chat::find($request->chatId);
+        NewMessage::dispatch($userTo, $chat, $message);
     }
 
 }

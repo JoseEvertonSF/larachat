@@ -1,7 +1,6 @@
 <div>
     <ul class="metismenu" id="menu-bar">
         @foreach($chats as $chat)
-        
             <li class="chat-side-bar">
                 <a href="{{route('chat', ['idUser' => $chat->participants[0]->id])}}">
                     <div class="d-flex align-items-start p-2">
