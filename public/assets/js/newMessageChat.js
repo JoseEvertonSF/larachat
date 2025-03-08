@@ -72,13 +72,14 @@ window.Echo.private(`chat.${chatId}`)
         let hora = formataHora(data);
         let divChat = document.querySelector('.area-message');
         if(response.userFrom.id != userId){
-            if(divChat.scrollTop == 2241){
+            createElementMessageUserFrom(response, hora);
+            if((divChat.scrollHeight - divChat.scrollTop) == 819) {
                 scrollBottom();
             }
-            createElementMessageUserFrom(response, hora);
         }else{
             createElementMessageUserTo(response.message.content, hora);
             scrollBottom();
         }
+        
         setSideBarMessage(response.message.chat_id, response.message.content, hora); 
 })
