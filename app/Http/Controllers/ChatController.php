@@ -27,6 +27,8 @@ class ChatController extends Controller
             ChatUser::create(['chat_id' => $chat->id, 'user_id' => auth()->user()->id]);
             ChatUser::create(['chat_id' => $chat->id, 'user_id' => $idUser]);
         }
+        
+        Message::where(['chat_id' => $chat->id, 'read' => 'false'])->whereNot('user_id', auth()->id())->update(['read' => 'true']);
 
         $chat->messages =  $chat->messages?->sortBy('created_at');
         return view('chat', ['user' => $userFrom, 'chat' => $chat, 'userTo' => auth()->user()]);
@@ -39,11 +41,19 @@ class ChatController extends Controller
         $message = Message::create([
             'chat_id' => $request->chatId,
             'content' => $request->content,
+            'read' => 'false',
             'user_id' => $userTo->id 
         ]);
 
         $chat = Chat::find($request->chatId);
         NewMessage::dispatch($userTo, $chat, $message);
+    }
+
+    public function updateReadMessage(Request $request)
+    {
+        $message = Message::find($request->idMessage);
+        $message->read = 'true';
+        $message->save();
     }
 
 }

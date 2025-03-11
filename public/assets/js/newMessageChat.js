@@ -1,3 +1,5 @@
+import './sidebar';
+
 scrollBottom();
 
 function scrollBottom()
@@ -57,22 +59,17 @@ function createElementMessageUserFrom(response, hora)
     areaMensagem.appendChild(elementMessage);
 }
 
-function setSideBarMessage(chatId, textMessage, hora)
-{
-    let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
-    let chatHourSideBar = document.querySelector(`#hour-chat-${chatId}`);
-    chatSideBar.innerText = textMessage;
-    chatHourSideBar.innerText = hora;
-}
 
 window.Echo.private(`chat.${chatId}`)
     .listen('NewMessage', (response) => {
+        console.log(response);
         let dataString = response.message.created_at;
         let data = new Date(dataString.substring(0, dataString.length - 1));
         let hora = formataHora(data);
         let divChat = document.querySelector('.area-message');
         if(response.userFrom.id != userId){
             createElementMessageUserFrom(response, hora);
+            updateReadMessage(response.message.id);
             if((divChat.scrollHeight - divChat.scrollTop) == 819) {
                 scrollBottom();
             }
@@ -83,3 +80,20 @@ window.Echo.private(`chat.${chatId}`)
         
         setSideBarMessage(response.message.chat_id, response.message.content, hora); 
 })
+
+function updateReadMessage(id)
+{   
+    let csrfToken = document.querySelector('input[name="_token"]');
+    let url = '/larachat/public/chat/message/update-read';
+    let parametros = {
+        method : 'POST',
+        headers : {
+            'X-CSRF-TOKEN': csrfToken.value,
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+            'idMessage' : id,
+        })
+    };
+    fetch(url, parametros);
+}

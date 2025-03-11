@@ -28,6 +28,6 @@ class UserController extends Controller
         $user->online = false;
         $user->save();
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 }
