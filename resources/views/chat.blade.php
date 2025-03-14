@@ -83,8 +83,6 @@
         </div>
     </div>
     <script>
-        var user = '{!! $userTo->name !!}';
-        var userId = '{!! $userTo->id !!}';
         var chatId = '{!! $chat->id !!}';
     </script>
     <script type="module" src="{{url('assets/js/newMessageChat.js')}}"></script>

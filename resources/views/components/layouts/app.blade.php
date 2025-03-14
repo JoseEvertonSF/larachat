@@ -75,6 +75,10 @@
             </div>
         </div>
     </div>
+    <script>
+        var user = '{{ auth()->user()->name}}';
+        var userId = '{{ auth()->user()->id}}';
+    </script>
     <!-- Vendor js -->
     <script src="{{url('assets/js/vendor.min.js')}}"></script>
 

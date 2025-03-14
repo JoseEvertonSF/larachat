@@ -15,7 +15,14 @@ function closeSideBar()
     sideBar.style.visibility = 'hidden';
 }
 
-export function setSideBarMessage(chatId, textMessage, hora)
+function formataHora(date)
+{
+    let hora = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    let minuto = date.getMinutes() < 10 ? `${date.getMinutes()}` : date.getMinutes();
+    return `${hora}:${minuto}`;
+}
+
+function setSideBarMessage(chatId, textMessage, hora)
 {
     let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
     let chatHourSideBar = document.querySelector(`#hour-chat-${chatId}`);
@@ -23,40 +30,48 @@ export function setSideBarMessage(chatId, textMessage, hora)
     chatHourSideBar.innerText = hora;
 }
 
-export function setSideBarChats(response, textMessage, hora)
-{
+function setSideBarChats(response)
+{   
+    let dataString = response.message.created_at;
+    let data = new Date(dataString.substring(0, dataString.length - 1));
+    let hora = formataHora(data);
     let sideBar = document.querySelector('#menu-bar');
     let chatSideBar = document.createElement('li');
     chatSideBar.classList.add('chat-side-bar');
-    chatSideBar.innerHtml = `<a href="">
+    chatSideBar.innerHtml = `<a href="/chat/${response.user.id}">
                                 <div class="d-flex align-items-start p-2">
                                     <div class="foto" style=" width: 45px;">
 
                                     </div>
                                     <div class="w-100 overflow-hidden ml-2" style="white-space: nowrap; text-overflow: ellipsis;">
                                         <h6 class="mt-0 mb-0 fs-14">
-                                            Nome
-                                            <span class="float-right text-muted" style="font-size: 10px" id="hour-chat-">
-                                                Hora
+                                            ${response.chat.chat_name ?? response.user.name}
+                                            <span class="float-right text-muted" style="font-size: 10px" id="hour-chat-${response.chat.id}">
+                                                ${hora}
                                             </span>
                                         </h6>
-                                        <p style="font-size: 12px; word-break: break-word" id="{{'message-chat-'.$chat->id}}">
-                                            @if(isset($chat->messages[0]))
-                                                {{$chat->messages[0]->content}}
-                                            @endif
-                                            <span class="float-right badge bg-danger text-white" style="display:none">25</span>
+                                        <p style="font-size: 12px; word-break: break-word"  id="message-chat-${response.chat.id}">
+                                            ${response.message.content}
+                                            <span class="float-right badge bg-danger text-white">${response.unreadMessage}</span>
                                         </p>
                                     </div>
                                 </div>
                             </a>`;
 }
 
-function sideBarChats(chatId, textMessage, hora)
+function sideBarChats(response)
 {
     let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
     if(chatSideBar){
-        setSideBarMessage(chatId, textMessage, hora)
+        setSideBarMessage(response.chat.id, notification.message.content, formataHora(hora))
     }else{
-        setSideBarChats(chatId, textMessage, hora);
+        setSideBarChats(response);
     }
 }
+
+window.Echo.private(`App.Models.User.${userId}`).notification((notification) => {
+    console.log(notification);
+    sideBarChats(notification);
+})
+
+

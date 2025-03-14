@@ -1,5 +1,3 @@
-import './sidebar';
-
 scrollBottom();
 
 function scrollBottom()

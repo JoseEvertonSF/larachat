@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\NewMessage;
 use App\Models\Message;
+use App\Notifications\NewMessageNotification;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
@@ -45,7 +46,12 @@ class ChatController extends Controller
             'user_id' => $userTo->id 
         ]);
 
-        $chat = Chat::find($request->chatId);
+        $user = $chat->participants()->whereNot('user_id', $userTo->id)->toRawSql();
+        $unreadMessages = Message::whereNot('user_id', $userTo->id)
+                            ->where('chat_id', $chat->id)->where('read', 'false')
+                        ->count();
+        
+        $user->notify(new NewMessageNotification($userTo->id , $chat,  $message, $unreadMessages));
         NewMessage::dispatch($userTo, $chat, $message);
     }
 
