@@ -20,7 +20,9 @@
                                 @if(isset($chat->messages[0]))
                                     {{$chat->messages[0]->content}}
                                 @endif
-                                <span class="float-right badge bg-danger text-white" style="display:none">25</span>
+                                @if(isset($unreadMessages[$chat->id]) && $unreadMessages[$chat->id]->count > 0)
+                                    <span class="float-right badge bg-danger text-white">{{ $unreadMessages[$chat->id]->count }}</span>
+                                @endif
                             </p>
                         </div>
                     </div>

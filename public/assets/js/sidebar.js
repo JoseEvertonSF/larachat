@@ -5,6 +5,11 @@ let btnExpandirSideBarClose = document.querySelector('.sidebar-close');
 btnExpandirSideBarOpen.addEventListener('click', () => openSideBar())
 btnExpandirSideBarClose.addEventListener('click', () => closeSideBar());
 
+
+window.Echo.private(`App.Models.User.${userId}`).notification((notification) => {
+    sideBarChats(notification);
+})
+
 function openSideBar()
 {
     sideBar.style.visibility = 'visible';
@@ -22,12 +27,23 @@ function formataHora(date)
     return `${hora}:${minuto}`;
 }
 
-function setSideBarMessage(chatId, textMessage, hora)
-{
+function setSideBarMessage(chatId, textMessage, hora, mensagensNaoLidas = 0)
+{   
     let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
     let chatHourSideBar = document.querySelector(`#hour-chat-${chatId}`);
     chatSideBar.innerText = textMessage;
     chatHourSideBar.innerText = hora;
+
+    if(mensagensNaoLidas > 0){
+        let chatMensagensNaoLidas = document.createElement('span');
+        chatMensagensNaoLidas.classList.add('float-right');
+        chatMensagensNaoLidas.classList.add('badge');
+        chatMensagensNaoLidas.classList.add('bg-danger');
+        chatMensagensNaoLidas.classList.add('text-white');
+        chatMensagensNaoLidas.innerText = mensagensNaoLidas;
+        chatSideBar.appendChild(chatMensagensNaoLidas);
+    }
+     
 }
 
 function setSideBarChats(response)
@@ -38,7 +54,7 @@ function setSideBarChats(response)
     let sideBar = document.querySelector('#menu-bar');
     let chatSideBar = document.createElement('li');
     chatSideBar.classList.add('chat-side-bar');
-    chatSideBar.innerHtml = `<a href="/chat/${response.user.id}">
+    let chatSideBarConteudo = `<a href="">
                                 <div class="d-flex align-items-start p-2">
                                     <div class="foto" style=" width: 45px;">
 
@@ -52,26 +68,27 @@ function setSideBarChats(response)
                                         </h6>
                                         <p style="font-size: 12px; word-break: break-word"  id="message-chat-${response.chat.id}">
                                             ${response.message.content}
-                                            <span class="float-right badge bg-danger text-white">${response.unreadMessage}</span>
+                                            <span class="float-right badge bg-danger text-white">${response.unreadMessages}</span>
                                         </p>
                                     </div>
                                 </div>
                             </a>`;
+            
+    chatSideBar.innerHTML = chatSideBarConteudo
+    sideBar.appendChild(chatSideBar);
 }
 
-function sideBarChats(response)
+function sideBarChats(notification)
 {
-    let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
-    if(chatSideBar){
-        setSideBarMessage(response.chat.id, notification.message.content, formataHora(hora))
+    let chatSideBar = document.querySelector(`#message-chat-${notification.chat.id}`);
+    if(chatSideBar == null){
+        setSideBarChats(notification);
     }else{
-        setSideBarChats(response);
+        let dataString = notification.message.created_at;
+        let data = new Date(dataString.substring(0, dataString.length - 1));
+        let hora = formataHora(data);
+        setSideBarMessage(notification.chat.id, notification.message.content, hora, notification.unreadMessages)
     }
 }
-
-window.Echo.private(`App.Models.User.${userId}`).notification((notification) => {
-    console.log(notification);
-    sideBarChats(notification);
-})
 
 

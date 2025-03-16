@@ -17,7 +17,7 @@ class NewMessageNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public Chat $chat, public Message $message, public int $unreadMessages)
+    public function __construct(public $user, public $chat, public Message $message, public int $unreadMessages)
     {
         //
     }

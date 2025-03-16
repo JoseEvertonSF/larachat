@@ -46,13 +46,13 @@ class ChatController extends Controller
             'user_id' => $userTo->id 
         ]);
 
-        $user = $chat->participants()->whereNot('user_id', $userTo->id)->toRawSql();
-        $unreadMessages = Message::whereNot('user_id', $userTo->id)
-                            ->where('chat_id', $chat->id)->where('read', 'false')
-                        ->count();
+        $chat = Chat::find($request->chatId);
+        $user = $chat->participants()->whereNot('user_id', $userTo->id)->first();
         
-        $user->notify(new NewMessageNotification($userTo->id , $chat,  $message, $unreadMessages));
+        $unreadMessages = Message::where('chat_id', $chat->id)->whereNot('user_id', $user->id)->where('read', 'false')->count();
+
         NewMessage::dispatch($userTo, $chat, $message);
+        $user->notify(new NewMessageNotification($userTo, $chat,  $message, $unreadMessages));
     }
 
     public function updateReadMessage(Request $request)

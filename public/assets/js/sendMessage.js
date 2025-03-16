@@ -2,16 +2,18 @@ let inputMessage = document.querySelector('.input-message');
 let buttonSend = document.querySelector('#send');
 let areaMessages = document.querySelector('.conversation-list');
 
-buttonSend.addEventListener('click', (event) => {
-    event.preventDefault();
-    let date = new Date();
-    let hora = formataHora(date);
-    let chatId = inputMessage.getAttribute('idchat');
-    let message = inputMessage.innerText;
-    inputMessage.innerText = '';
-    sendMessage(chatId, message);
-
-});
+if(buttonSend !== null){
+    buttonSend.addEventListener('click', (event) => {
+        event.preventDefault();
+        let date = new Date();
+        let hora = formataHora(date);
+        let chatId = inputMessage.getAttribute('idchat');
+        let message = inputMessage.innerText;
+        inputMessage.innerText = '';
+        sendMessage(chatId, message);
+    
+    });
+}
 
 
 function formataHora(date)
@@ -24,7 +26,7 @@ function formataHora(date)
 async function sendMessage(chatId, message)
 {   
     let csrfToken = document.querySelector('input[name="_token"]');
-    let url = '/larachat/public/chat/send';
+    let url = '/larachat/public/chat/send-message';
     let parametros = {
         method : 'POST',
         headers : {

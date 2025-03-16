@@ -19,8 +19,15 @@ class SideBarChats extends Component
                 $query->whereIn('chat_id', $myChats)->whereNot('user_id', auth()->user()->id);
         }])->get();
 
+        $unreadMessage = Message::selectRaw('chat_id, COUNT(read)')->whereIn('chat_id', $myChats)
+                            ->whereNot('user_id', auth()->user()->id)
+                            ->where('read', 'false')
+                            ->groupBy('chat_id')
+                        ->get();
+        
         return view('livewire.side-bar-chats', [
-            'chats' => $chats
+            'chats' => $chats,
+            'unreadMessages' => $unreadMessage->keyBy('chat_id')
         ]);
     }
 }
