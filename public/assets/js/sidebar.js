@@ -79,7 +79,13 @@ function setSideBarChats(response)
 }
 
 function sideBarChats(notification)
-{
+{   
+    let rotaAtual = window.location.href.split('/');
+
+    if(rotaAtual[rotaAtual.length - 1] == notification.user.id){
+        return false;
+    }
+
     let chatSideBar = document.querySelector(`#message-chat-${notification.chat.id}`);
     if(chatSideBar == null){
         setSideBarChats(notification);
