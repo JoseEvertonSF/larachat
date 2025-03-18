@@ -20,42 +20,49 @@
                 <div class="chat-conversation mt-2">
                     <div class="col-xl-12">
                         <ul class="conversation-list area-message">
-                            @foreach($chat->messages as $message)
-                                @if($message->user_id == $userTo->id)
-                                    <li class="clearfix odd">
-                                        <div class="chat-avatar">
-                                            <div class="foto">
+                            @foreach($chat->messages as $key => $messages)
+                                <div class="text-center">
+                                    <span class="badge badge-soft-secondary p-2">
+                                        {{ $key == date('d/m/Y') ? 'HOJE': $key }}
+                                    </span>
+                                </div>
+                                @foreach($messages as $message)
+                                    @if($message->user_id == $userTo->id)
+                                        <li class="clearfix odd mt-2">
+                                            <div class="chat-avatar">
+                                                <div class="foto">
 
+                                                </div>
+                                                <i>{{date('H:i', strtotime($message->created_at))}}</i>
                                             </div>
-                                            <i>{{date('H:i', strtotime($message->created_at))}}</i>
-                                        </div>
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap bg-soft-success col-xl-4">
-                                                <i>{{$userTo->name}}</i>
-                                                <p style="word-break: break-word">
-                                                    {{$message->content}}
-                                                </p>
+                                            <div class="conversation-text">
+                                                <div class="ctext-wrap bg-soft-success col-xl-4">
+                                                    <i>{{$userTo->name}}</i>
+                                                    <p style="word-break: break-word">
+                                                        {{$message->content}}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @else
-                                    <li class="clearfix">
-                                        <div class="chat-avatar">
-                                            <div class="foto">
+                                        </li>
+                                    @else
+                                        <li class="clearfix mt-2">
+                                            <div class="chat-avatar">
+                                                <div class="foto">
 
+                                                </div>
+                                                <i>{{date('H:i', strtotime($message->created_at))}}</i>
                                             </div>
-                                            <i>{{date('H:i', strtotime($message->created_at))}}</i>
-                                        </div>
-                                        <div class="conversation-text">
-                                            <div class="ctext-wrap col-xl-4">
-                                                <i>{{$user->name}}</i>
-                                                <p style="word-break: break-word">
-                                                    {{$message->content}}
-                                                </p>
+                                            <div class="conversation-text">
+                                                <div class="ctext-wrap col-xl-4">
+                                                    <i>{{$user->name}}</i>
+                                                    <p style="word-break: break-word">
+                                                        {{$message->content}}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @endif
+                                        </li>
+                                    @endif
+                                @endforeach
                             @endforeach
                         </ul>
                     </div>

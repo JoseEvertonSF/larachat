@@ -31,7 +31,9 @@ class ChatController extends Controller
         
         Message::where(['chat_id' => $chat->id, 'read' => 'false'])->whereNot('user_id', auth()->id())->update(['read' => 'true']);
 
-        $chat->messages =  $chat->messages?->sortBy('created_at');
+        $chat->messages =  $chat->messages?->sortBy('created_at')->groupBy(function($message, $key){
+            return date('d/m/Y', strtotime($message->created_at));
+        });
         return view('chat', ['user' => $userFrom, 'chat' => $chat, 'userTo' => auth()->user()]);
         
     }

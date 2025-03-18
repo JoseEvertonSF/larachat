@@ -60,7 +60,6 @@ function createElementMessageUserFrom(response, hora)
 
 window.Echo.private(`chat.${chatId}`)
     .listen('NewMessage', (response) => {
-        console.log(response);
         let dataString = response.message.created_at;
         let data = new Date(dataString.substring(0, dataString.length - 1));
         let hora = formataHora(data);
