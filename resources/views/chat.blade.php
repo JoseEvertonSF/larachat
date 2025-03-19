@@ -64,7 +64,11 @@
                                     @endif
                                 @endforeach
                             @endforeach
+                            <span class="badge badge-soft-secondary p-1 down-button" style="display: none">
+                                <i data-feather="chevron-down" class="feather feather-send"></i>
+                            </span>
                         </ul>
+ 
                     </div>
                     <div class="card col-xl-12 area-input-message">
                         <form>

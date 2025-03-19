@@ -1,9 +1,23 @@
 scrollBottom();
 
+let downButton = document.querySelector('.down-button');
+downButton.addEventListener('click', scrollBottom);
+
+let divChat = document.querySelector('.area-message');
+divChat.addEventListener('scroll', () => {
+    console.log((divChat.scrollHeight - divChat.scrollTop));
+    if((divChat.scrollHeight - divChat.scrollTop) > 1000){
+        showDownButton();
+    }else{
+        hideDownButton();
+    }
+}) 
+
 function scrollBottom()
 {
     let divChat = document.querySelector('.area-message');
     divChat.scrollTop = divChat.scrollHeight;
+    hideDownButton();
 }
 
 function formataHora(date)
@@ -69,6 +83,8 @@ window.Echo.private(`chat.${chatId}`)
             updateReadMessage(response.message.id);
             if((divChat.scrollHeight - divChat.scrollTop) == 819) {
                 scrollBottom();
+            }else{
+                showDownButton();
             }
         }else{
             createElementMessageUserTo(response.message.content, hora);
@@ -77,6 +93,18 @@ window.Echo.private(`chat.${chatId}`)
         
         setSideBarMessage(response.message.chat_id, response.message.content, hora); 
 })
+
+function showDownButton()
+{   
+    let downButton = document.querySelector('.down-button');
+    downButton.style.display = 'block'
+}
+
+function hideDownButton()
+{   
+    let downButton = document.querySelector('.down-button');
+    downButton.style.display = 'none'
+}
 
 function updateReadMessage(id)
 {   
