@@ -2,20 +2,6 @@ let inputMessage = document.querySelector('.input-message');
 let buttonSend = document.querySelector('#send');
 let areaMessages = document.querySelector('.conversation-list');
 
-if(buttonSend !== null){
-    buttonSend.addEventListener('click', (event) => {
-        event.preventDefault();
-        let date = new Date();
-        let hora = formataHora(date);
-        let chatId = inputMessage.getAttribute('idchat');
-        let message = inputMessage.innerText;
-        inputMessage.innerText = '';
-        sendMessage(chatId, message);
-    
-    });
-}
-
-
 function formataHora(date)
 {
     let hora = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
@@ -40,5 +26,20 @@ async function sendMessage(chatId, message)
     };
 
     fetch(url, parametros);
+}
+
+
+function send(event){
+    event.preventDefault();
+    let inputMessage = document.querySelector('.input-message');
+    if(inputMessage.innerText.length == 0 && inputMessage.innerText == "\n"){
+        return false;
+    }
+    let date = new Date();
+    let hora = formataHora(date);
+    let chatId = inputMessage.getAttribute('idchat');
+    let message = inputMessage.innerText;
+    inputMessage.innerText = '';
+    sendMessage(chatId, message);
 }
 

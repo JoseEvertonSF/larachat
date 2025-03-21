@@ -1,11 +1,11 @@
 scrollBottom();
 
+const isChatTyping = false;
 let downButton = document.querySelector('.down-button');
 downButton.addEventListener('click', scrollBottom);
 
 let divChat = document.querySelector('.area-message');
 divChat.addEventListener('scroll', () => {
-    console.log((divChat.scrollHeight - divChat.scrollTop));
     if((divChat.scrollHeight - divChat.scrollTop) > 1000){
         showDownButton();
     }else{
@@ -90,9 +90,15 @@ window.Echo.private(`chat.${chatId}`)
             createElementMessageUserTo(response.message.content, hora);
             scrollBottom();
         }
-        
         setSideBarMessage(response.message.chat_id, response.message.content, hora); 
-})
+    }).listenForWhisper('typing', (e) => {
+        console.log('oi');
+    })
+
+window.Echo.private(`chat.${chatId}`).whisper('typing', {
+    id : chatId
+})    
+
 
 function showDownButton()
 {   

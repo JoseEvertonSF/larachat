@@ -22,7 +22,7 @@
                         <ul class="conversation-list area-message">
                             @foreach($chat->messages as $key => $messages)
                                 <div class="text-center">
-                                    <span class="badge badge-soft-secondary p-2">
+                                    <span class="badge badge-soft p-2" style="background-color: #fff; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
                                         {{ $key == date('d/m/Y') ? 'HOJE': $key }}
                                     </span>
                                 </div>
@@ -71,23 +71,21 @@
  
                     </div>
                     <div class="card col-xl-12 area-input-message">
-                        <form>
-                            @csrf
-                            <div class="card-body p-0">
-                                <div class="row m-4">
-                                    <div class="col form-control border-0 input-message" contenteditable="true" idchat="{{$chat->id}}"
-                                        style="background-color: #f3f4f7;">
+                        @csrf
+                        <div class="card-body p-0">
+                            <div class="row m-4">
+                                <div class="col form-control border-0 input-message" contenteditable="true" idchat="{{$chat->id}}"
+                                    style="background-color: #f3f4f7;">
 
-                                    </div>
-                                    <div class="col-auto" style="align-content: flex-end">
-                                        <button type="submit" id="send"
-                                            class="btn btn-success chat-send btn-block waves-effect waves-light">
-                                            <i data-feather="send" class="feather feather-send"></i>
-                                        </button>
-                                    </div>
+                                </div>
+                                <div class="col-auto" style="align-content: flex-end">
+                                    <button type="submit" id="send" onclick="send(event)"
+                                        class="btn btn-success chat-send btn-block waves-effect waves-light">
+                                        <i data-feather="send" class="feather feather-send"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div> <!-- end .chat-conversation-->
             </div>

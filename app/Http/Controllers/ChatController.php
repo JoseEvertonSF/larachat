@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
 use App\Models\ChatUser;
+use App\Events\ToWrite;
 
 
 class ChatController extends Controller
@@ -55,6 +56,11 @@ class ChatController extends Controller
 
         NewMessage::dispatch($userTo, $chat, $message);
         $user->notify(new NewMessageNotification($userTo, $chat,  $message, $unreadMessages));
+    }
+    
+    public function toWrite(Request $request)
+    {
+        ToWrite::dispatch($request->chatId);
     }
 
     public function updateReadMessage(Request $request)
