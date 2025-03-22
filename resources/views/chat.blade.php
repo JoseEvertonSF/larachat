@@ -9,7 +9,15 @@
                                 <i data-feather="menu" class="icon-dual sidebar-open" style="cursor:pointer"></i>
                             </div>
                             <div class="foto">
+                                <p class="pt-2 text-center">
+                                    @php
+                                        $nome = explode(' ', $chat->participants[0]->name);
+                                        $primeiraLetraNome = substr($nome[0], 0 , 1);
+                                        $primeiraLetraSobrenome = substr($nome[1], 0 , 1);
 
+                                    @endphp
+                                    {{ $primeiraLetraNome.$primeiraLetraSobrenome }}
+                                </p>
                             </div>
                             <div class="ml-2 mt-2">
                                 <label><strong>{{$chat->name ?? $user->name}}</strong></label>
@@ -31,7 +39,15 @@
                                         <li class="clearfix odd mt-2">
                                             <div class="chat-avatar">
                                                 <div class="foto">
+                                                    <p class="pt-2 text-center">
+                                                        @php
+                                                            $nomeLoggedUser = explode(' ', auth()->user()->name);
+                                                            $primeiraLetraNomeLoggedUser = substr($nomeLoggedUser[0], 0 , 1);
+                                                            $primeiraLetraSobrenomeLoggedUser = substr($nomeLoggedUser[1], 0 , 1);
 
+                                                        @endphp
+                                                        {{ $primeiraLetraNomeLoggedUser.$primeiraLetraSobrenomeLoggedUser }}
+                                                    </p>
                                                 </div>
                                                 <i>{{date('H:i', strtotime($message->created_at))}}</i>
                                             </div>
@@ -48,7 +64,15 @@
                                         <li class="clearfix mt-2">
                                             <div class="chat-avatar">
                                                 <div class="foto">
+                                                    <p class="pt-2 text-center">
+                                                        @php
+                                                            $nome = explode(' ', $chat->participants[0]->name);
+                                                            $primeiraLetraNome = substr($nome[0], 0 , 1);
+                                                            $primeiraLetraSobrenome = substr($nome[1], 0 , 1);
 
+                                                        @endphp
+                                                        {{ $primeiraLetraNome.$primeiraLetraSobrenome }}
+                                                    </p>
                                                 </div>
                                                 <i>{{date('H:i', strtotime($message->created_at))}}</i>
                                             </div>

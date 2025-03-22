@@ -54,10 +54,14 @@ function setSideBarChats(response)
     let sideBar = document.querySelector('#menu-bar');
     let chatSideBar = document.createElement('li');
     chatSideBar.classList.add('chat-side-bar');
+    let chatName = response.user.name.split(' ');
+
     let chatSideBarConteudo = `<a href="">
                                 <div class="d-flex align-items-start p-2">
                                     <div class="foto" style=" width: 45px;">
-
+                                        <p class="pt-2 text-center">
+                                            ${chatName[0]}${chatName[1]}     
+                                        </p>
                                     </div>
                                     <div class="w-100 overflow-hidden ml-2" style="white-space: nowrap; text-overflow: ellipsis;">
                                         <h6 class="mt-0 mb-0 fs-14">

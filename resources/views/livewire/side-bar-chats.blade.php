@@ -5,7 +5,15 @@
                 <a href="{{route('chat', ['idUser' => $chat->participants[0]->id])}}">
                     <div class="d-flex align-items-start p-2">
                         <div class="foto" style=" width: 45px;">
+                            <p class="pt-2 text-center">
+                                @php
+                                    $nome = explode(' ', $chat->participants[0]->name);
+                                    $primeiraLetraNome = substr($nome[0], 0 , 1);
+                                    $primeiraLetraSobrenome = substr($nome[1], 0 , 1);
 
+                                @endphp
+                                {{ $primeiraLetraNome.$primeiraLetraSobrenome }}
+                            </p>
                         </div>
                         <div class="w-100 overflow-hidden ml-2 " style="white-space: nowrap; text-overflow: ellipsis;">
                             <h6 class="mt-0 mb-0 fs-14">

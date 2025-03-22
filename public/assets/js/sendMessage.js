@@ -2,6 +2,20 @@ let inputMessage = document.querySelector('.input-message');
 let buttonSend = document.querySelector('#send');
 let areaMessages = document.querySelector('.conversation-list');
 
+inputMessage.addEventListener('keydown', (event) => {
+    let regex = new RegExp("^[a-zA-Z0-9._\b]+$");
+    let str = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+
+    if(inputMessage.innerText.length > 0 && inputMessage.innerText == "\n"){
+        return false;
+    }
+
+    if(regex.test(str)){
+        typing();
+        setTimeout(() => {noTyping()}, 5000);
+    }
+});
+
 function formataHora(date)
 {
     let hora = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
@@ -43,3 +57,18 @@ function send(event){
     sendMessage(chatId, message);
 }
 
+function typing()
+{
+    window.Echo.private(`chat.${chatId}`).whisper('typing', {
+        id : chatId,
+        message: 'typing'
+    });
+
+}
+
+function noTyping(){
+    window.Echo.private(`chat.${chatId}`).whisper('typing', {
+        id : chatId,
+        message: 'no-typing'
+    });
+}

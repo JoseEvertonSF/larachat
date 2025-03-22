@@ -15,8 +15,6 @@ Route::post('/register/create', [UserController::class, 'create'])->name('regist
 Route::get('/chat/{idUser}', [ChatController::class, 'chat'])->name('chat')->middleware('auth');;
 Route::post('/chat/send-message', [ChatController::class, 'store'])->name('send-message')->middleware('auth');
 Route::post('/chat/message/update-read', [ChatController::class, 'updateReadMessage'])->name('update-read')->middleware('auth');
-Route::post('/chat/to-write',[ ChatController::class, 'toWrite'])->name('to_write')->middleware('auth');
-
 
 
 

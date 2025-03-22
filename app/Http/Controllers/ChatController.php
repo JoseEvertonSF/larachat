@@ -57,11 +57,6 @@ class ChatController extends Controller
         NewMessage::dispatch($userTo, $chat, $message);
         $user->notify(new NewMessageNotification($userTo, $chat,  $message, $unreadMessages));
     }
-    
-    public function toWrite(Request $request)
-    {
-        ToWrite::dispatch($request->chatId);
-    }
 
     public function updateReadMessage(Request $request)
     {
