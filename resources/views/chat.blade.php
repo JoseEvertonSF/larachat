@@ -11,7 +11,7 @@
                             <div class="foto">
                                 <p class="pt-2 text-center">
                                     @php
-                                        $nome = explode(' ', $chat->participants[0]->name);
+                                        $nome = explode(' ', string: $chat->participants['userFrom']->name);
                                         $primeiraLetraNome = substr($nome[0], 0 , 1);
                                         $primeiraLetraSobrenome = substr($nome[1], 0 , 1);
 
@@ -20,7 +20,7 @@
                                 </p>
                             </div>
                             <div class="ml-2 mt-2">
-                                <label><strong>{{$chat->name ?? $user->name}}</strong></label>
+                                <label><strong>{{$chat->name ??  $chat->participants['userFrom']->name}}</strong></label>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                     </span>
                                 </div>
                                 @foreach($messages as $message)
-                                    @if($message->user_id == $userTo->id)
+                                    @if($message->user_id == auth()->user()->id)
                                         <li class="clearfix odd mt-2">
                                             <div class="chat-avatar">
                                                 <div class="foto">
@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="conversation-text">
                                                 <div class="ctext-wrap bg-soft-success col-xl-4">
-                                                    <i>{{$userTo->name}}</i>
+                                                    <i>{{auth()->user()->name}}</i>
                                                     <p style="word-break: break-word">
                                                         {{$message->content}}
                                                     </p>
@@ -66,7 +66,7 @@
                                                 <div class="foto">
                                                     <p class="pt-2 text-center">
                                                         @php
-                                                            $nome = explode(' ', $chat->participants[0]->name);
+                                                            $nome = explode(' ', $chat->participants['userFrom']->name);
                                                             $primeiraLetraNome = substr($nome[0], 0 , 1);
                                                             $primeiraLetraSobrenome = substr($nome[1], 0 , 1);
 
@@ -78,7 +78,7 @@
                                             </div>
                                             <div class="conversation-text">
                                                 <div class="ctext-wrap col-xl-4">
-                                                    <i>{{$user->name}}</i>
+                                                    <i>{{$chat->participants['userFrom']->name}}</i>
                                                     <p style="word-break: break-word">
                                                         {{$message->content}}
                                                     </p>

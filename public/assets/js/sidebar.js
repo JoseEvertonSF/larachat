@@ -1,10 +1,11 @@
+typingSideBar();
+
 let sideBar = document.querySelector('.side-menu');
 let btnExpandirSideBarOpen = document.querySelector('.sidebar-open');
 let btnExpandirSideBarClose = document.querySelector('.sidebar-close');
 
 btnExpandirSideBarOpen.addEventListener('click', () => openSideBar())
 btnExpandirSideBarClose.addEventListener('click', () => closeSideBar());
-
 
 window.Echo.private(`App.Models.User.${userId}`).notification((notification) => {
     sideBarChats(notification);
@@ -31,7 +32,7 @@ function setSideBarMessage(chatId, textMessage, hora, mensagensNaoLidas = 0)
 {   
     let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
     let chatHourSideBar = document.querySelector(`#hour-chat-${chatId}`);
-    chatSideBar.innerText = textMessage;
+    chatSideBar.innerHTML = `<span id="message">${textMessage}</span>`;
     chatHourSideBar.innerText = hora;
 
     if(mensagensNaoLidas > 0){
@@ -53,6 +54,7 @@ function setSideBarChats(response)
     let hora = formataHora(data);
     let sideBar = document.querySelector('#menu-bar');
     let chatSideBar = document.createElement('li');
+    chatSideBar.setAttribute('id', response.chat.id)
     chatSideBar.classList.add('chat-side-bar');
     let chatName = response.user.name.split(' ');
 
@@ -71,7 +73,7 @@ function setSideBarChats(response)
                                             </span>
                                         </h6>
                                         <p style="font-size: 12px; word-break: break-word"  id="message-chat-${response.chat.id}">
-                                            ${response.message.content}
+                                            <span id="message">${response.message.content}</span>
                                             <span class="float-right badge bg-danger text-white">${response.unreadMessages}</span>
                                         </p>
                                     </div>
@@ -86,7 +88,7 @@ function sideBarChats(notification)
 {   
     let rotaAtual = window.location.href.split('/');
 
-    if(rotaAtual[rotaAtual.length - 1] == notification.user.id){
+    if(rotaAtual[rotaAtual.length - 1] == notification.chat.id){
         return false;
     }
 
@@ -100,5 +102,39 @@ function sideBarChats(notification)
         setSideBarMessage(notification.chat.id, notification.message.content, hora, notification.unreadMessages)
     }
 }
+
+function typingSideBar()
+{   
+    let rotaAtual = window.location.href.split('/');
+    let sideBar = document.querySelectorAll('.chat-side-bar');
+    var lastMessages = [];
+
+    for(let chat of sideBar)
+    {  
+        let chatId = chat.getAttribute('id');
+        if(rotaAtual[rotaAtual.length - 1] !== chatId){
+            let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
+            let message = chatSideBar.querySelector('#message');
+            lastMessages[`message-chat-${chatId}`] = message.innerText;
+        
+            window.Echo.private(`chat.${chatId}`).listenForWhisper('typing', (event) => {
+                let message = chatSideBar.querySelector('#message');
+
+                if(message.innerText !== 'digitando'){
+                    lastMessages[`message-chat-${chatId}`] = message.innerText;
+                }
+        
+                if(event.message == 'typing'){
+                    message.innerText = `digitando`;
+                }else{
+                    message.innerText = lastMessages[`message-chat-${chatId}`];
+                }
+            })
+        }
+    }
+}
+
+
+
 
 

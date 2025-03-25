@@ -1,6 +1,7 @@
 let inputMessage = document.querySelector('.input-message');
 let buttonSend = document.querySelector('#send');
 let areaMessages = document.querySelector('.conversation-list');
+let typingTime = null;
 
 inputMessage.addEventListener('keydown', (event) => {
     let regex = new RegExp("^[a-zA-Z0-9._\b]+$");
@@ -12,7 +13,11 @@ inputMessage.addEventListener('keydown', (event) => {
 
     if(regex.test(str)){
         typing();
-        setTimeout(() => {noTyping()}, 5000);
+        if(typingTime){
+            clearTimeout(typingTime);
+        }
+        typingTime = setTimeout(() => {noTyping()}, 2000);
+        
     }
 });
 

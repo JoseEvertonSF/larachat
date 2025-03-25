@@ -14,15 +14,13 @@ use App\Events\ToWrite;
 
 class ChatController extends Controller
 {   
-    public function chat($idUser)
+    public function createChat($idUser)
     {  
-        $chat = Chat::with('messages')->whereHas('participants', function($query){
+        $chat = Chat::whereHas('participants', function($query){
             $query->where('user_id', auth()->id());
         })->whereHas('participants', function($query) use($idUser){
             $query->where('user_id', $idUser);
         })->first();
-        
-        $userFrom = User::find($idUser);
 
         if(!$chat){
             $chat = Chat::create();
@@ -30,13 +28,25 @@ class ChatController extends Controller
             ChatUser::create(['chat_id' => $chat->id, 'user_id' => $idUser]);
         }
         
-        Message::where(['chat_id' => $chat->id, 'read' => 'false'])->whereNot('user_id', auth()->id())->update(['read' => 'true']);
+        return redirect()->route('chat', $chat->id);
+    }
 
-        $chat->messages =  $chat->messages?->sortBy('created_at')->groupBy(function($message, $key){
+    public function chat($chatId)
+    {   
+        $chat = Chat::with('messages')->with('participants')->where('id', $chatId)->first();
+        $chat->participants = $chat->participants->keyBy(function($item, $key){
+            if($item->id == auth()->user()->id){
+                return 'userTo';
+            }
+
+            return 'userFrom';
+        });
+        Message::where(['chat_id' => $chat->id, 'read' => 'false'])->whereNot('user_id', auth()->id())->update(['read' => 'true']);
+        $chat->messages = $chat->messages?->sortBy('created_at')->groupBy(function($message, $key){
             return date('d/m/Y', strtotime($message->created_at));
         });
-        return view('chat', ['user' => $userFrom, 'chat' => $chat, 'userTo' => auth()->user()]);
-        
+
+        return view('chat', ['chat' => $chat]);
     }
 
     public function store(Request $request, Chat $chat)
@@ -51,9 +61,7 @@ class ChatController extends Controller
 
         $chat = Chat::find($request->chatId);
         $user = $chat->participants()->whereNot('user_id', $userTo->id)->first();
-        
         $unreadMessages = Message::where('chat_id', $chat->id)->whereNot('user_id', $user->id)->where('read', 'false')->count();
-
         NewMessage::dispatch($userTo, $chat, $message);
         $user->notify(new NewMessageNotification($userTo, $chat,  $message, $unreadMessages));
     }

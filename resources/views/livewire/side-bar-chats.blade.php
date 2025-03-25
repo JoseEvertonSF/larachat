@@ -1,8 +1,8 @@
 <div>
     <ul class="metismenu" id="menu-bar">
         @foreach($chats as $chat)
-            <li class="chat-side-bar">
-                <a href="{{route('chat', ['idUser' => $chat->participants[0]->id])}}">
+            <li class="chat-side-bar" id="{{  $chat->id }}">
+                <a href="{{route('chat', ['idChat' => $chat->id])}}">
                     <div class="d-flex align-items-start p-2">
                         <div class="foto" style=" width: 45px;">
                             <p class="pt-2 text-center">
@@ -26,7 +26,7 @@
                             </h6>
                             <p style="font-size: 12px; word-break: break-word" id="{{'message-chat-'.$chat->id}}">
                                 @if(isset($chat->messages[0]))
-                                    {{$chat->messages[0]->content}}
+                                    <span id="message">{{$chat->messages[0]->content}}</span>
                                 @endif
                                 @if(isset($unreadMessages[$chat->id]) && $unreadMessages[$chat->id]->count > 0)
                                     <span class="float-right badge bg-danger text-white">{{ $unreadMessages[$chat->id]->count }}</span>
