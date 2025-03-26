@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 .foto{
     border-radius: 50%;
     background-color: #d3d3d3;
@@ -11,11 +12,11 @@
     height: 40px;
 }
 
-#chats{
-    cursor: pointer;
+.chat-side-bar:hover{
+    background-color:#f8f9fa
 }
 
-#chats:hover{
+.modal-chat:hover{
     background-color:#f8f9fa
 }
 
@@ -26,8 +27,8 @@
 }
 
 .chat{
-    margin-top: 0px; 
-    margin-left: 350px; 
+    margin-top: 0px;
+    margin-left: 350px;
     padding: 0px; 
     width: calc(100% - 350px);
 }
@@ -35,6 +36,7 @@
 .area-message{
     height: 79vh !important;
     overflow: auto !important;
+    margin-bottom: 30px;
 }
 
 .input-message{

@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat-conversation mt-2">
+                <div class="mt-2">
                     <div class="col-xl-12">
                         <ul class="conversation-list area-message">
                             @foreach($chat->messages as $key => $messages)
@@ -94,6 +94,7 @@
                         </ul>
  
                     </div>
+                    <br><br>
                     <div class="card col-xl-12 area-input-message">
                         @csrf
                         <div class="card-body p-0">

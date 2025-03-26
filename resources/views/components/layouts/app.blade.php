@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Larachat</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,7 +29,7 @@
                     <div class="card mb-0" style="height: 100vh">
                         <div class="card-body">
                             <div class="row pl-2">
-                                <h4><strong>Conversas</strong></h4>
+                                <h4><a href="{{ route('home') }}">Conversas</a></h4>
                                 <div class="ml-auto mt-2 icon-item icon-none">
                                     <i data-feather="x" class="icon-dual sidebar-close" style="cursor:pointer"></i>
                                 </div>
