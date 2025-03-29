@@ -8,11 +8,12 @@ services:
           - POSTGRES_PASSWORD=postgres
           - POSTGRES_DB=larachat
         ports:
-          - "5433:5433"
+          - "5433:5432"
         volumes:
           - ./docker/postgres-data:/var/lib/postgresql/data
         networks:
             - larachat_network
+        container_name: db_larachat
     app:
         image: larachat
         build:
@@ -27,14 +28,14 @@ services:
             - db
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
-            - '8000:8000'
+            - '${REVERB_PORT:-8080}:${REVERB_PORT:-8080}'
         networks:
             - larachat_network
-    nginx:
+    nginx-larachat:
         image: nginx:alpine
         container_name: servidor-nginx
         ports:
-            - "8989:80"
+            - "8181:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
@@ -45,6 +46,5 @@ networks:
     larachat_network:
       name: larachat_network
       driver: bridge
-  
   
 

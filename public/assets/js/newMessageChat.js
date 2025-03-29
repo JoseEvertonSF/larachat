@@ -33,10 +33,11 @@ function createElementMessageUserTo(textoMessage, hora)
     elementMessage.classList.add('clearfix');
     elementMessage.classList.add('odd');
     let chatName = user.split(' ');
+    let sigla = `${chatName[0].substring(0,  1)}${1 in chatName ? chatName[1].substring(0,  1) : ''}`
     elementMessage.innerHTML = `<div class="chat-avatar">
                                     <div class="foto">
                                         <p class="pt-2 text-center">
-                                            ${chatName[0].substring(0,  1)}${chatName[1].substring(0,  1)}     
+                                            ${sigla} 
                                         </p>
                                     </div>
                                     <i>${hora}</i>
@@ -59,10 +60,11 @@ function createElementMessageUserFrom(response, hora)
     let elementMessage = document.createElement('li');
     elementMessage.classList.add('clearfix');
     let chatName = response.userFrom.name.split(' ');
+    let sigla = `${chatName[0].substring(0,  1)}${1 in chatName ? chatName[1].substring(0,  1) : ''}`
     elementMessage.innerHTML = `<div class="chat-avatar">
                                     <div class="foto">
                                         <p class="pt-2 text-center">
-                                            ${chatName[0].substring(0,  1)}${chatName[1].substring(0,  1)}     
+                                            ${sigla}    
                                         </p>
                                     </div>
                                     <i>${hora}</i>
