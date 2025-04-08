@@ -86,8 +86,7 @@
     <script src="{{url('assets/js/app.min.js')}}"></script>
     <script src="{{url('assets/js/filtroModal.js')}}"></script>
     <script src="{{url('assets/js/filtroChats.js')}}"></script>
-    <script src="{{url('assets/js/sidebar.js')}}"></script>
-    <script src="{{url('assets/js/sendMessage.js')}}"></script>
+    <script type="module" src="{{url('assets/js/sendMessage.js')}}"></script>
     <script type="module" src="{{url('assets/js/sidebar.js')}}"></script>
 </body>
 

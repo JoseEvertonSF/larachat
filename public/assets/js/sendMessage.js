@@ -35,7 +35,7 @@ function formataHora(date)
 async function sendMessage(chatId, message)
 {   
     let csrfToken = document.querySelector('input[name="_token"]');
-    let url = '/larachat/public/chat/send-message';
+    let url = 'send-message';
     let parametros = {
         method : 'POST',
         headers : {

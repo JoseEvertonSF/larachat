@@ -1,0 +1,33 @@
+
+   INFO  Starting server on 127.0.0.1:8080.  
+
+  Pruning Stale Connections ..................................................  
+
+   TypeError 
+
+  Laravel\Reverb\ConfigApplicationProvider::findById(): Argument #1 ($id) must be of type string, null given, called in /var/www/vendor/laravel/reverb/src/ConfigApplicationProvider.php on line 27
+
+  at vendor/laravel/reverb/src/ConfigApplicationProvider.php:36
+     32▕      * Find an application instance by ID.
+     33▕      *
+     34▕      * @throws \Laravel\Reverb\Exceptions\InvalidApplication
+     35▕      */
+  ➜  36▕     public function findById(string $id): Application
+     37▕     {
+     38▕         return $this->find('app_id', $id);
+     39▕     }
+     40▕
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Laravel\Reverb\ConfigApplicationProvider::Laravel\Reverb\{closure}()
+      [2m+34 vendor frames [22m
+
+  37  artisan:13
+      Illuminate\Foundation\Application::handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+
+  2025-04-07 21:42:45 App\Events\NewMessage .......................... RUNNING
+  2025-04-07 21:42:45 App\Events\NewMessage ..................... 19.50ms DONE
+  2025-04-07 21:42:45 Illuminate\Notifications\Events\BroadcastNotificationCreated  RUNNING
+  2025-04-07 21:42:45 Illuminate\Notifications\Events\BroadcastNotificationCreated  5.12ms DONE
