@@ -80,7 +80,7 @@ window.Echo.private(`chat.${chatId}`).listen('NewMessage', (response) => {
     }else{
         removeElementTyping()
     }
-    console.log(819);
+    
     if((divChat.scrollHeight - divChat.scrollTop) < 819) {
         scrollBottom();
     }

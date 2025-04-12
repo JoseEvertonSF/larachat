@@ -49,6 +49,7 @@ export function setSideBarMessage(chatId, textMessage, hora, mensagensNaoLidas =
 
 function setSideBarChats(response)
 {   
+    let rotaAtual = window.location.href.split('/');
     let dataString = response.message.created_at;
     let data = new Date(dataString.substring(0, dataString.length - 1));
     let hora = formataHora(data);
@@ -57,12 +58,13 @@ function setSideBarChats(response)
     chatSideBar.setAttribute('id', response.chat.id)
     chatSideBar.classList.add('chat-side-bar');
     let chatName = response.user.name.split(' ');
+    let sigla = `${chatName[0].substring(0,  1)}${1 in chatName ? chatName[1].substring(0,  1) : ''}`
 
-    let chatSideBarConteudo = `<a href="">
+    let chatSideBarConteudo = `<a href="${rotaAtual[0]}/chat/${response.chat.id}">
                                 <div class="d-flex align-items-start p-2">
                                     <div class="foto" style=" width: 45px;">
                                         <p class="pt-2 text-center">
-                                            ${chatName[0]}${chatName[1]}     
+                                            ${sigla}     
                                         </p>
                                     </div>
                                     <div class="w-100 overflow-hidden ml-2" style="white-space: nowrap; text-overflow: ellipsis;">
