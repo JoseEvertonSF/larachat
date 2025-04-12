@@ -61,8 +61,8 @@ class ChatController extends Controller
 
         $chat = Chat::find($request->chatId);
         $user = $chat->participants()->whereNot('user_id', $userTo->id)->first();
-        $unreadMessages = Message::where('chat_id', $chat->id)->whereNot('user_id', $user->id)->where('read', 'false')->count();
         NewMessage::dispatch($userTo, $chat, $message);
+        $unreadMessages = Message::where('chat_id', $chat->id)->whereNot('user_id', $user->id)->where('read', 'false')->count();
         $user->notify(new NewMessageNotification($userTo, $chat,  $message, $unreadMessages));
     }
 

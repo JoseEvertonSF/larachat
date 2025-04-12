@@ -1,8 +1,9 @@
+import { setSideBarMessage } from "./sidebar.js";
+
 scrollBottom();
 
 let downButton = document.querySelector('.down-button');
 downButton.addEventListener('click', scrollBottom);
-
 let divChat = document.querySelector('.area-message');
     
 divChat.addEventListener('scroll', () => {
@@ -13,7 +14,7 @@ divChat.addEventListener('scroll', () => {
     }
 }) 
 
-function scrollBottom()
+export function scrollBottom()
 {
     let divChat = document.querySelector('.area-message');
     divChat.scrollTop = divChat.scrollHeight;
@@ -27,32 +28,7 @@ function formataHora(date)
     return `${hora}:${minuto}`;
 }
 
-function createElementMessageUserTo(textoMessage, hora)
-{   
-    let elementMessage = document.createElement('li');
-    elementMessage.classList.add('clearfix');
-    elementMessage.classList.add('odd');
-    let chatName = user.split(' ');
-    let sigla = `${chatName[0].substring(0,  1)}${1 in chatName ? chatName[1].substring(0,  1) : ''}`
-    elementMessage.innerHTML = `<div class="chat-avatar">
-                                    <div class="foto">
-                                        <p class="pt-2 text-center">
-                                            ${sigla} 
-                                        </p>
-                                    </div>
-                                    <i>${hora}</i>
-                                </div>
-                                <div class="conversation-text">
-                                    <div class="ctext-wrap bg-soft-success col-xl-4">
-                                        <i>${user}</i>
-                                        <p style="word-break: break-word">
-                                        ${textoMessage}
-                                        </p>
-                                    </div>
-                                </div>`;
 
-    areaMessages.appendChild(elementMessage);
-}
 
 function createElementMessageUserFrom(response, hora)
 {   
@@ -91,14 +67,11 @@ window.Echo.private(`chat.${chatId}`).listen('NewMessage', (response) => {
             removeElementTyping();
             createElementMessageUserFrom(response, hora);
             updateReadMessage(response.message.id);
-            if((divChat.scrollHeight - divChat.scrollTop) == 819) {
+            if((divChat.scrollHeight - divChat.scrollTop) < 819) {
                 scrollBottom();
             }else{
                 showDownButton();
             }
-        }else{
-            createElementMessageUserTo(response.message.content, hora);
-            scrollBottom();
         }
         setSideBarMessage(response.message.chat_id, response.message.content, hora); 
 }).listenForWhisper('typing', (event) => {
@@ -107,7 +80,7 @@ window.Echo.private(`chat.${chatId}`).listen('NewMessage', (response) => {
     }else{
         removeElementTyping()
     }
-
+    console.log(819);
     if((divChat.scrollHeight - divChat.scrollTop) < 819) {
         scrollBottom();
     }
@@ -128,7 +101,7 @@ function hideDownButton()
 function updateReadMessage(id)
 {   
     let csrfToken = document.querySelector('input[name="_token"]');
-    let url = '/larachat/public/chat/message/update-read';
+    let url = '/chat/message/update-read';
     let parametros = {
         method : 'POST',
         headers : {

@@ -1,5 +1,7 @@
+import {scrollBottom} from "./newMessageChat.js";
+
 let inputMessage = document.querySelector('.input-message');
-let buttonSend = document.querySelector('#send');
+let formMessage = document.querySelector('#form-message');
 let areaMessages = document.querySelector('.conversation-list');
 let typingTime = null;
 
@@ -24,15 +26,42 @@ if(inputMessage !== null){
     
 }
 
-
-function formataHora(date)
+export function formataHora(date)
 {
     let hora = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
     let minuto = date.getMinutes() < 10 ? `${date.getMinutes()}` : date.getMinutes();
     return `${hora}:${minuto}`;
 }
 
-async function sendMessage(chatId, message)
+function createElementMessageUserTo(textoMessage, hora)
+{   
+    let areaMensagem = document.querySelector('.area-message');
+    let elementMessage = document.createElement('li');
+    elementMessage.classList.add('clearfix');
+    elementMessage.classList.add('odd');
+    let chatName = user.split(' ');
+    let sigla = `${chatName[0].substring(0,  1)}${1 in chatName ? chatName[1].substring(0,  1) : ''}`
+    elementMessage.innerHTML = `<div class="chat-avatar">
+                                    <div class="foto">
+                                        <p class="pt-2 text-center">
+                                            ${sigla} 
+                                        </p>
+                                    </div>
+                                    <i>${hora}</i>
+                                </div>
+                                <div class="conversation-text">
+                                    <div class="ctext-wrap bg-soft-success col-xl-4">
+                                        <i>${user}</i>
+                                        <p style="word-break: break-word">
+                                        ${textoMessage}
+                                        </p>
+                                    </div>
+                                </div>`;
+
+    areaMensagem.appendChild(elementMessage);
+}
+
+function sendMessage(chatId, message)
 {   
     let csrfToken = document.querySelector('input[name="_token"]');
     let url = 'send-message';
@@ -51,8 +80,7 @@ async function sendMessage(chatId, message)
     fetch(url, parametros);
 }
 
-
-function send(event){
+formMessage.addEventListener('submit', (event) => {
     event.preventDefault();
     let inputMessage = document.querySelector('.input-message');
     if(inputMessage.innerText.length == 0 && inputMessage.innerText == "\n"){
@@ -64,9 +92,12 @@ function send(event){
     let message = inputMessage.innerText;
     inputMessage.innerText = '';
     sendMessage(chatId, message);
-}
+    createElementMessageUserTo(message, hora);
+    scrollBottom();
+    
+})
 
-function typing()
+export function typing()
 {
     window.Echo.private(`chat.${chatId}`).whisper('typing', {
         id : chatId,
@@ -75,7 +106,7 @@ function typing()
 
 }
 
-function noTyping(){
+export function noTyping(){
     window.Echo.private(`chat.${chatId}`).whisper('typing', {
         id : chatId,
         message: 'no-typing'

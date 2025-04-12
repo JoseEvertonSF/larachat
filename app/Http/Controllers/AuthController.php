@@ -27,4 +27,10 @@ class AuthController extends Controller
                     ->with(['erro' => 'Usuário não existe ou credenciais estão incorretas']);
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
 }

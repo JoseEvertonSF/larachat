@@ -28,7 +28,7 @@ function formataHora(date)
     return `${hora}:${minuto}`;
 }
 
-function setSideBarMessage(chatId, textMessage, hora, mensagensNaoLidas = 0)
+export function setSideBarMessage(chatId, textMessage, hora, mensagensNaoLidas = 0)
 {   
     let chatSideBar = document.querySelector(`#message-chat-${chatId}`);
     let chatHourSideBar = document.querySelector(`#hour-chat-${chatId}`);

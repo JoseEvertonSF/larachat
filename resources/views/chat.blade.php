@@ -95,23 +95,25 @@
  
                     </div>
                     <br><br>
-                    <div class="card col-xl-12 area-input-message">
-                        @csrf
-                        <div class="card-body p-0">
-                            <div class="row m-4">
-                                <div class="col form-control border-0 input-message" contenteditable="true" idchat="{{$chat->id}}"
-                                    style="background-color: #f3f4f7;">
-
-                                </div>
-                                <div class="col-auto" style="align-content: flex-end">
-                                    <button type="submit" id="send" onclick="send(event)"
-                                        class="btn btn-success chat-send btn-block waves-effect waves-light">
-                                        <i data-feather="send" class="feather feather-send"></i>
-                                    </button>
+                    <form id="form-message">
+                        <div class="card col-xl-12 area-input-message">
+                            @csrf
+                            <div class="card-body p-0">
+                                <div class="row m-4">
+                                    <div class="col form-control border-0 input-message" contenteditable="true" idchat="{{$chat->id}}"
+                                        style="background-color: #f3f4f7;">
+    
+                                    </div>
+                                    <div class="col-auto" style="align-content: flex-end">
+                                        <button type="submit" id="send"
+                                            class="btn btn-success chat-send btn-block waves-effect waves-light">
+                                            <i data-feather="send" class="feather feather-send"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div> <!-- end .chat-conversation-->
             </div>
         </div>

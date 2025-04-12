@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 Route::get('/register', [UserController::class, 'index'])->name('register');
