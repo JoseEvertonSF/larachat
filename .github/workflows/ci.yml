@@ -15,11 +15,14 @@ jobs:
       - name: Build docker
         run: docker compose build 
 
+      - name: Levantando containers
+        run: docker compose up -d
+        
       - name: Entrando no container
         run: docker exec -it larachat bash
 
       - name: Composer Install
-        run: composer Install
+        run: composer install
       
       - name:
         run: php artisan test tests/Unit/ExampleTest.php
