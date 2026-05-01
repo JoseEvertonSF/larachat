@@ -17,13 +17,10 @@ jobs:
 
       - name: Levantando containers
         run: docker compose up -d
-        
-      - name: Entrando no container
-        run: docker exec -it larachat bash
-
-      - name: Composer Install
-        run: composer install
       
-      - name:
-        run: php artisan test tests/Unit/ExampleTest.php
+      - name: Composer Install
+        run: docker exec -it larachat composer install
+      
+      - name: Rodando teste
+        run: docker exec -it larachat composer php artisan test tests/Unit/ExampleTest.php
         
