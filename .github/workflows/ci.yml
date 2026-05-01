@@ -19,8 +19,8 @@ jobs:
         run: docker compose up -d
       
       - name: Composer Install
-        run: docker exec -it larachat composer install
+        run: docker exec larachat composer install
       
       - name: Rodando teste
-        run: docker exec -it larachat composer php artisan test tests/Unit/ExampleTest.php
+        run: docker exec larachat composer php artisan test tests/Unit/ExampleTest.php
         
