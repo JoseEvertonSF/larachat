@@ -31,9 +31,25 @@ RUN docker-php-ext-install zip \
     && docker-php-ext-install calendar \
     && docker-php-ext-configure calendar
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Composer
 
+## Copiando binario do composer da imagem oficial e copiando para dentro da minha imagem. Nome da tecnica multi-stage build.
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer 
+
+## Definindo onde os proximos comandos irão rodar
 WORKDIR /var/www
+
+## Copiando apenas os arquivos de dependencia
+COPY composer.json composer.lock ./
+
+# Instalando as libs php
+RUN composer install --no-interaction --prefer-dist --no-scripts --no-autoloader
+
+# Copiando resto do projeto
+COPY . .
+
+# Rodando autoload otimizado
+RUN composer dump-autoload --optimize
 
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \ 

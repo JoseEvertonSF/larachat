@@ -23,7 +23,7 @@ jobs:
           tags: larachat:latest
           push: false
           cache-from: type=gha,scope=larachat
-          cache-to: type=gha,mode=max,scope=larachat
+          cache-to: type=gha,mode=max
 
       - name: Levantando containers 
         run: docker compose up -d
