@@ -13,4 +13,14 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Build docker
-        run: docker compose build
+        run: docker compose build 
+
+      - name: Entrando no container
+        run: docker exec -it larachat bash
+
+      - name: Composer Install
+        run: composer Install
+      
+      - name:
+        run: php artisan test tests/Unit/ExampleTest.php
+        
