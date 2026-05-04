@@ -3,7 +3,7 @@ name: CI # Nome do Workflow
 on: # Especifica quando 
   pull_request:
     brances:
-      - main
+      - staging
 
 jobs:
   test:
