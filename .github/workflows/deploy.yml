@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Valida branch
-        if: github.base_ref == 'main' && github.head_ref != 'develop'
+        if: github.base_ref == 'main' && github.head_ref != 'staging'
         run: |
           echo "ERRO: Pull requests para a main só são permitidos a partir da branch 'develop'."
           exit 1
