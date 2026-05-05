@@ -1,0 +1,20 @@
+name: DEPLOY
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executando deploy
+        uses: appleboy/ssh-action@v1
+        with: 
+          host: ${{secrets.REMOTE_HOST}}
+          username: ${{secrets.REMOTE_USER}}
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
+          script: | 
+          cd /var/www/larachat
+          git pull origin main
