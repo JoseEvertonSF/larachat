@@ -1,4 +1,4 @@
-name: CI # Nome do Workflow
+name: CI STAGING # Nome do Workflow
 
 on: # Especifica quando 
   pull_request:
