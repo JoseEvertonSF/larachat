@@ -31,4 +31,3 @@ jobs:
       
       - name: Rodando teste
         run: docker exec larachat php artisan test tests/Unit/ExampleTest.php
-        
