@@ -7,12 +7,10 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Executando deploy
-        uses: appleboy/ssh-action@v1
-        with: # Entrando via SSH
-          host: ${{secrets.REMOTE_HOST}}
-          username: ${{secrets.REMOTE_USER}}
-          key: ${{ secrets.SSH_PRIVATE_KEY}}
-          script: cd /var/www/larachat && git pull origin main # Rodando comando na maquina
+      - name: Executando deploy localmente
+        run: |
+          cd /var/www/larachat
+          git checkout main
+          git pull
