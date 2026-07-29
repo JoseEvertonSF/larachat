@@ -22,12 +22,12 @@ jobs:
           file: ./Dockerfile
           tags: larachat:latest
           push: false
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Levantando containers 
         run: docker compose up -d
-      
-      - name: Composer Install
-        run: docker exec larachat composer install
       
       - name: Rodando teste
         run: docker exec larachat php artisan test tests/Unit/ExampleTest.php
