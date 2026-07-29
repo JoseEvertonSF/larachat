@@ -27,10 +27,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Levantando containers 
-        run: docker compose up -d
-      
-      - name: Composer Install
-        run: docker exec larachat composer install
+        run: docker compose up -d db app
       
       - name: Rodando teste
         run: docker exec larachat php artisan test tests/Unit/ExampleTest.php
